@@ -3,9 +3,9 @@
   "//2": "https://docs.npmjs.com/files/package.json",
   "//3": "updating this file will download and update your packages",
 
-  "name": "my-glitch-app",
+  "name": "timestamp-fcc-api-project",
   "version": "0.0.1",
-  "description": "What am I about?",
+  "description": "FreeCodeCamp Backend Project to check if a supplied date is either Natural (e.g., December 25, 2017) or Unix. If true, it will display both Unix and Natural, if False, it will show a null response for each.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
