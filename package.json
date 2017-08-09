@@ -11,18 +11,27 @@
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.15.3"
+    "dotenv": "^1.2.0",
+    "express": "^4.12.4",
+    "express-session": "^1.11.3",
+    "mongoose": "^4.1.0",
+    "passport": "^0.3.0",
+    "passport-github": "^1.0.0"
   },
   "engines": {
     "node": "8.x"
   },
   "repository": {
-    "url": "https://glitch.com/edit/#!/welcome-project"
+    "type": "git",
+    "url": "git+https://github.com/niaskywalk/timestamp"
   },
   "license": "MIT",
   "keywords": [
-    "node",
-    "glitch",
-    "express"
+    "MongoDB",
+    "Mongoose",
+    "full stack",
+    "Express",
+    "Node",
+    "javascript"
   ]
 }

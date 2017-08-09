@@ -1,39 +1,34 @@
-// server.js
-// where your node app starts
+'use strict';
 
-// init project
 var express = require('express');
+var routes = require('./app/routes/index.js');
+var mongoose = require('mongoose');
+var passport = require('passport');
+var session = require('express-session');
+
 var app = express();
+require('dotenv').load();
+require('./app/config/passport')(passport);
 
-// we've started you off with Express, 
-// but feel free to use whatever libs or frameworks you'd like through `package.json`.
+mongoose.connect(process.env.MONGO_URI);
+mongoose.Promise = global.Promise;
 
-// http://expressjs.com/en/starter/static-files.html
-app.use(express.static('public'));
+app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
+app.use('/public', express.static(process.cwd() + '/public'));
+app.use('/common', express.static(process.cwd() + '/app/common'));
 
-// http://expressjs.com/en/starter/basic-routing.html
-app.get("/", function (request, response) {
-  response.sendFile(__dirname + '/views/index.html');
-});
+app.use(session({
+	secret: 'secretClementine',
+	resave: false,
+	saveUninitialized: true
+}));
 
-app.get("/dreams", function (request, response) {
-  response.send(dreams);
-});
+app.use(passport.initialize());
+app.use(passport.session());
 
-// could also use the POST body instead of query string: http://expressjs.com/en/api.html#req.body
-app.post("/dreams", function (request, response) {
-  dreams.push(request.query.dream);
-  response.sendStatus(200);
-});
+routes(app, passport);
 
-// Simple in-memory store for now
-var dreams = [
-  "Find and count some sheep",
-  "Climb a really tall mountain",
-  "Wash the dishes"
-];
-
-// listen for requests :)
-var listener = app.listen(process.env.PORT, function () {
-  console.log('Your app is listening on port ' + listener.address().port);
+var port = process.env.PORT || 8080;
+app.listen(port,  function () {
+	console.log('Node.js listening on port ' + port + '...');
 });
