@@ -1,0 +1,30 @@
+{
+  "name": "timestamp-fcc-api-project",
+  "version": "0.0.1",
+  "description": "FreeCodeCamp Backend Project to check if a supplied date is either Natural (e.g., December 25, 2017) or Unix. If true, it will display both Unix and Natural, if False, it will show a null response for each.",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.15.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niaskywalk/timestamp.git"
+  },
+  "keywords": [
+    "freecodecamp",
+    "timestamp",
+    "javascript",
+    "learntocode"
+  ],
+  "author": "Victoria Kariolic (NiaSkywalk)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/niaskywalk/timestamp/issues"
+  },
+  "homepage": "https://github.com/niaskywalk/timestamp#readme"
+}
