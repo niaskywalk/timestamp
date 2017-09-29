@@ -1,13 +1,15 @@
 "use strict";
 
 var http = require('http');
-var  = require('url');
+var URL = require('url');
 var express = require('express');
 var app = express;
 
 var server = http.createServer(function(req,res) {
   res.writeHead(200, { 'Content-type': 'application/json' });
-  res.write(req.url);
+  var mypathname = URL.parse(req.url).pathname;
+  res.write(mypathname.slice(1));
+  
   res.end('\nFinished Processing');
 });
 
