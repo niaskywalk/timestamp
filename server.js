@@ -35,7 +35,7 @@ var server = http.createServer(function(req,res) {
       }
 
       var myDate = new Date(caseResult);
-      res.write("this is my date "+ myDate + " => " + (myDate !== "Invalid Date"));
+      // res.write("this is my date "+ myDate + " => " + (myDate !== "Invalid Date"));
     if (myDate !== "Invalid Date") {
         res.write("My date said it was not Invalid Date =>" + myDate +"\n" );
         if (caseResult) {  
