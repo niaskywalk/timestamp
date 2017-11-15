@@ -1,39 +1,56 @@
-// server.js
-// where your node app starts
+"use strict";
 
-// init project
-var express = require('express');
-var app = express();
+var http = require('http');
+var URL = require('url');
 
-// we've started you off with Express, 
-// but feel free to use whatever libs or frameworks you'd like through `package.json`.
+var monthnames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-// http://expressjs.com/en/starter/static-files.html
-app.use(express.static('public'));
 
-// http://expressjs.com/en/starter/basic-routing.html
-app.get("/", function (request, response) {
-  response.sendFile(__dirname + '/views/index.html');
+var server = http.createServer(function(req,res) {
+  res.writeHead(200, { 'Content-type': 'application/json' });
+  var mypathname = URL.parse(req.url).pathname;
+  var baseJSON = JSON.stringify({"unix": "null", "natural": "null"});
+  
+  var daterequest = decodeURIComponent(mypathname.slice(1));
+  
+  var isZero = Object.keys(daterequest).length === 0;
+    if (!isZero) {
+      var stringDate = String(daterequest);
+      // res.write("My stringDate "+ stringDate + " => " + new Date(stringDate) + "\n");
+      var numrequest = Number(daterequest);
+      // res.write("My numrequest "+ numrequest + " => " + new Date(numrequest) + "\n" + (isNaN(numrequest)) + "\t\n");
+      var caseResult = NaN;
+
+      switch (isNaN(numrequest)) {
+        case true:
+            caseResult = stringDate;
+            // res.write("The case was True => " + caseResult + "\n");
+            break;
+        case false:
+            caseResult = numrequest;
+          // res.write("The case was False => " + caseResult + "\n");
+            break;
+        default:
+            caseResult = "December 25, 0000";
+      }
+      // res.write("CaseResult: " + caseResult);
+      var myDate = new Date(caseResult);
+      // res.write("this is my date "+ myDate + " => " + (myDate === "Invalid Date"));
+    if (myDate.toString() !== "Invalid Date") {
+        // res.write("My date said it was not Invalid Date =>" + myDate +"\n" );
+        if (caseResult) {  
+          var naturaldateformat = monthnames[myDate.getMonth()] + " " + myDate.getDate() + ", " + myDate.getFullYear();
+          var z = JSON.stringify({"unix": myDate.getTime(), "natural": naturaldateformat});
+          res.end(z);
+        } else {
+          res.end("Something is wrong here");
+        }
+    } else {
+      res.end(baseJSON);
+    }
+  } else {
+      res.end(baseJSON);
+  }
 });
 
-app.get("/dreams", function (request, response) {
-  response.send(dreams);
-});
-
-// could also use the POST body instead of query string: http://expressjs.com/en/api.html#req.body
-app.post("/dreams", function (request, response) {
-  dreams.push(request.query.dream);
-  response.sendStatus(200);
-});
-
-// Simple in-memory store for now
-var dreams = [
-  "Find and count some sheep",
-  "Climb a really tall mountain",
-  "Wash the dishes"
-];
-
-// listen for requests :)
-var listener = app.listen(process.env.PORT, function () {
-  console.log('Your app is listening on port ' + listener.address().port);
-});
+server.listen(8080);
