@@ -19,7 +19,7 @@ var server = http.createServer(function(req,res) {
       // res.write("My stringDate "+ stringDate + " => " + new Date(stringDate) + "\n");
       var numrequest = Number(daterequest);
       // res.write("My numrequest "+ numrequest + " => " + new Date(numrequest) + "\n" + (isNaN(numrequest)) + "\t\n");
-      var caseResult;
+      var caseResult = NaN;
 
       switch (isNaN(numrequest)) {
         case true:
@@ -33,11 +33,11 @@ var server = http.createServer(function(req,res) {
         default:
             caseResult = "December 25, 0000";
       }
-
+      res.write("CaseResult: " + caseResult);
       var myDate = new Date(caseResult);
-      // res.write("this is my date "+ myDate + " => " + (myDate !== "Invalid Date"));
+      res.write("this is my date "+ myDate + " => " + (myDate !== "Invalid Date"));
     if (myDate !== "Invalid Date") {
-        res.write("My date said it was not Invalid Date =>" + myDate +"\n" );
+        // res.write("My date said it was not Invalid Date =>" + myDate +"\n" );
         if (caseResult) {  
           var naturaldateformat = monthnames[myDate.getMonth()] + " " + myDate.getDate() + ", " + myDate.getFullYear();
           var z = JSON.stringify({"unix": myDate.getTime(), "natural": naturaldateformat});
