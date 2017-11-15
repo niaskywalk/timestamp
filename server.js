@@ -33,10 +33,10 @@ var server = http.createServer(function(req,res) {
         default:
             caseResult = "December 25, 0000";
       }
-      res.write("CaseResult: " + caseResult);
+      // res.write("CaseResult: " + caseResult);
       var myDate = new Date(caseResult);
-      res.write("this is my date "+ myDate + " => " + (myDate !== "Invalid Date"));
-    if (myDate !== "Invalid Date") {
+      // res.write("this is my date "+ myDate + " => " + (myDate === "Invalid Date"));
+    if (myDate.toString() !== "Invalid Date") {
         // res.write("My date said it was not Invalid Date =>" + myDate +"\n" );
         if (caseResult) {  
           var naturaldateformat = monthnames[myDate.getMonth()] + " " + myDate.getDate() + ", " + myDate.getFullYear();
